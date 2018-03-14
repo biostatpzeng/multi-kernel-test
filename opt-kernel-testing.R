@@ -138,24 +138,24 @@ opt.ker <- function(x,y,z,alpha=0.05)
   ker.L <- gen.ker(x,"Lin")
   ker.Q <- gen.ker(x,"Quad")
   ######centralized and normalized kernels
-  kerM.G=ker.G$ker.cen/ker.G$v1.cen
-  kerM.L=ker.L$ker.cen/ker.L$v1.cen
-  kerM.Q=ker.Q$ker.cen/ker.Q$v1.cen
-  a3=rep(1/3,3)
-  kerM.a3=a3[1]*kerM.G+a3[2]*kerM.L+a3[3]*kerM.Q #average kernel
+  kerM.G <- ker.G$ker.cen/ker.G$v1.cen
+  kerM.L <- ker.L$ker.cen/ker.L$v1.cen
+  kerM.Q <- ker.Q$ker.cen/ker.Q$v1.cen
+  a3 <- rep(1/3,3)
+  kerM.a3 <- a3[1]*kerM.G+a3[2]*kerM.L+a3[3]*kerM.Q #average kernel
   
-  test.G.ker=gen.Ustat(y,x,z,kerM.G)
-  test.L.ker=gen.Ustat(y,x,z,kerM.L)
-  test.Q.ker=gen.Ustat(y,x,z,kerM.Q)
-  test.a3.ker=gen.Ustat(y,x,z,kerM.a3)
+  test.G.ker <- gen.Ustat(y,x,z,kerM.G)
+  test.L.ker <- gen.Ustat(y,x,z,kerM.L)
+  test.Q.ker <- gen.Ustat(y,x,z,kerM.Q)
+  test.a3.ker <- gen.Ustat(y,x,z,kerM.a3)
   
-  A.g=test.G.ker$A.ma
-  A.l=test.L.ker$A.ma
-  A.q=test.Q.ker$A.ma
-  sig.corr=gen.sig.corr(list(A.g,A.l,A.q))
+  A.g <- test.G.ker$A.ma
+  A.l <- test.L.ker$A.ma
+  A.q <- test.Q.ker$A.ma
+  sig.corr <- gen.sig.corr(list(A.g,A.l,A.q))
   
   sd.vec <- c(test.G.ker$test.sd,test.L.ker$test.sd,test.Q.ker$test.sd)
-  sd.max=max(sd.vec)
+  sd.max <- max(sd.vec)
   q.cri <- qmvnorm(1-alpha, c(1.64,2.5),sigma = sig.corr, tail = "lower.tail",algorithm=TVPACK())$quantile
   re.opt <- ifelse(sd.max>q.cri,"reject H0: h(x0)=0","retain H0: h(x0)=0")
   return(list(max.test.result=re.opt, pvalue.averageKer=test.a3.ker$p.norm,pvalue.GauKer=test.G.ker$p.norm,pvalue.LinKer=test.L.ker$p.norm,pvalue.QuadKer=test.Q.ker$p.norm))
@@ -164,7 +164,7 @@ opt.ker <- function(x,y,z,alpha=0.05)
 
 
 #load data and test
-n=100;p=100
+n <- 100;p <- 100
 x <- matrix(rnorm(n*p),n,p)
 z <- matrix(rnorm(n*2),n,2)
 y <- rnorm(n)
